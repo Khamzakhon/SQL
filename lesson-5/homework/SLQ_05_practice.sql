@@ -174,13 +174,12 @@ VALUES
     ('Mayank', 'LICHI');
 
 
-select Name, [Apple],[Lichi],[Mango], [Orange] from 
-		(
-		select Name, Fruit, cnt from FruitCount
-		) as SourceTable
-		
-		pivot 
-		(
-		COUNT(fruit) for fruit in ('Apple','Lichi','Mango','Orange')) from Fruitcount
-		) as PivotTable
+select Name, [Mango], [Apple],[Lichi],[Orange] 
+			from (
+			select name, Fruit from FruitCount
+				) as SourceTable
+		pivot    (
+			count(fruit) for fruit in ( [Mango], [Apple],[Lichi],[Orange])
+				 ) as PivotTable
+
 
